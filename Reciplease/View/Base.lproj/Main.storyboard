@@ -140,11 +140,11 @@
                                             <constraint firstAttribute="height" constant="40" id="JR8-P5-JXZ"/>
                                         </constraints>
                                     </stackView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Add your ingredients" translatesAutoresizingMaskIntoConstraints="NO" id="T2F-t9-66r">
-                                        <rect key="frame" x="30" y="170" width="354" height="470"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="euA-y4-iMP">
+                                        <rect key="frame" x="20" y="170" width="374" height="470"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" smartInsertDeleteType="yes"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d86-3f-v1e">
                                         <rect key="frame" x="136" y="645" width="142" height="60"/>
@@ -163,10 +163,12 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="XYl-ri-dnf" secondAttribute="trailing" constant="20" id="2UD-QL-NOi"/>
+                                    <constraint firstItem="euA-y4-iMP" firstAttribute="leading" secondItem="mZc-wt-ZWj" secondAttribute="leading" constant="20" id="5QM-ts-ROR"/>
                                     <constraint firstItem="w1b-LP-0cZ" firstAttribute="top" secondItem="mZc-wt-ZWj" secondAttribute="top" id="GLV-A8-olg"/>
                                     <constraint firstItem="XYl-ri-dnf" firstAttribute="leading" secondItem="mZc-wt-ZWj" secondAttribute="leading" constant="20" id="Pz4-We-XMa"/>
                                     <constraint firstItem="XYl-ri-dnf" firstAttribute="top" secondItem="w1b-LP-0cZ" secondAttribute="bottom" constant="5" id="RLu-pO-te4"/>
                                     <constraint firstAttribute="trailing" secondItem="w1b-LP-0cZ" secondAttribute="trailing" id="cAt-6b-SpG"/>
+                                    <constraint firstAttribute="trailing" secondItem="euA-y4-iMP" secondAttribute="trailing" constant="20" id="jyh-hM-jmF"/>
                                     <constraint firstItem="w1b-LP-0cZ" firstAttribute="leading" secondItem="mZc-wt-ZWj" secondAttribute="leading" id="kGH-Ok-ESr"/>
                                 </constraints>
                             </stackView>
@@ -182,7 +184,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Reciplease" id="VFI-8U-rj0"/>
                     <connections>
-                        <outlet property="list" destination="T2F-t9-66r" id="P3I-ur-kTa"/>
+                        <outlet property="listIngredientsTextView" destination="euA-y4-iMP" id="yIr-pD-CJw"/>
                         <outlet property="searchTextField" destination="K6F-7E-dkv" id="0da-1t-EO1"/>
                         <segue destination="ELL-MS-KPz" kind="show" identifier="resultOfRecipesSearch" id="aoz-PP-QXN"/>
                     </connections>
@@ -385,6 +387,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yC0-Rm-WnX">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>

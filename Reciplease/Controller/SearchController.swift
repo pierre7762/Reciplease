@@ -11,7 +11,9 @@ import Alamofire
 class SearchController: UIViewController {
     //MARK: outlets
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var list: UITextView!
+    @IBOutlet weak var listIngredientsTextView: UITextView!
+    
+    
     
     //MARK: variables
     var search = Search()
@@ -19,7 +21,7 @@ class SearchController: UIViewController {
     var searchText = ""
     var readyToShow = false
     private let baseUrl: String = ""
-    var ingredientsInRequest: String = "potatos,eggs"
+    var ingredientsInRequest: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +50,9 @@ class SearchController: UIViewController {
                 }
                 self.performSegue(withIdentifier: "resultOfRecipesSearch", sender: self.search.result)
             }
-            
         }
-        
     }
+    
     @objc func closeKeyboard() {
         view.endEditing(true)
     }
@@ -63,7 +64,7 @@ class SearchController: UIViewController {
             text = "\(text) - \(ingredient)\n "
             print(text)
         }
-        list.text = "moqdsvhqmv"
+        listIngredientsTextView.text = text
     }
     
     func updateIngredientsInRequest() {
