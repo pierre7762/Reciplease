@@ -14,7 +14,6 @@ class ResultSearchController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(data.count)
         
     }
 
@@ -22,7 +21,7 @@ class ResultSearchController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "toDetail" else { return }
         guard let controller = segue.destination as? DetailController else { return }
-        controller.data = sender as? Recipe
+        controller.recipe = sender as? Recipe
     }
     
     
@@ -47,7 +46,7 @@ class ResultSearchController: UITableViewController {
         } else {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
             
-            cell.textLabel?.text = recipe.label
+            cell.textLabel?.text = recipe.name
             return cell
         }
    

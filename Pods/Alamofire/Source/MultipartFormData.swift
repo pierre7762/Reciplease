@@ -213,7 +213,6 @@ open class MultipartFormData {
         //              Check 2 - is file URL reachable?
         //============================================================
 
-        #if !(os(Linux) || os(Windows))
         do {
             let isReachable = try fileURL.checkPromisedItemIsReachable()
             guard isReachable else {
@@ -224,7 +223,6 @@ open class MultipartFormData {
             setBodyPartError(withReason: .bodyPartFileNotReachableWithError(atURL: fileURL, error: error))
             return
         }
-        #endif
 
         //============================================================
         //            Check 3 - is file URL a directory?
@@ -421,12 +419,6 @@ open class MultipartFormData {
             }
         }
 
-        guard UInt64(encoded.count) == bodyPart.bodyContentLength else {
-            let error = AFError.UnexpectedInputStreamLength(bytesExpected: bodyPart.bodyContentLength,
-                                                            bytesRead: UInt64(encoded.count))
-            throw AFError.multipartEncodingFailed(reason: .inputStreamReadFailed(error: error))
-        }
-
         return encoded
     }
 
@@ -511,13 +503,11 @@ open class MultipartFormData {
     // MARK: - Private - Mime Type
 
     private func mimeType(forPathExtension pathExtension: String) -> String {
-        #if !(os(Linux) || os(Windows))
         if
             let id = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as CFString, nil)?.takeRetainedValue(),
             let contentType = UTTypeCopyPreferredTagWithClass(id, kUTTagClassMIMEType)?.takeRetainedValue() {
             return contentType as String
         }
-        #endif
 
         return "application/octet-stream"
     }

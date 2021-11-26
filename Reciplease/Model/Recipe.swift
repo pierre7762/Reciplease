@@ -7,11 +7,14 @@
 
 import Foundation
 
+
 struct Recipe {
-    var label: String
+    var name: String
     var image: String
     var ingredientsLines: [String]
     var ingredients: [Ingredient]
     var totalTime: Double
+    var urlToWebPageRecipe: String
+    var favorite: Bool = false
    
 }
