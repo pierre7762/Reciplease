@@ -59,11 +59,18 @@ class FavoriteController: UITableViewController {
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
         content.text = "\(String(describing: favoritList[indexPath.row].name!))"
-//        content.text = "test"
 
         cell.contentConfiguration = content
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            coreDataManager!.deleteFavoriteRecipe(index: indexPath.row)
+            fetchDataFromCorData()
+            favoriteRecipeTableView.reloadData()
+        }
     }
 
 
