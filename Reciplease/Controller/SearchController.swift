@@ -11,7 +11,7 @@ import Alamofire
 class SearchController: UIViewController {
     //MARK: outlets
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var listIngredientsTextView: UITextView!
+    @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchButton: UIButton!
     
@@ -33,6 +33,7 @@ class SearchController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         updateView()
         let tap = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
         view.addGestureRecognizer(tap)
@@ -41,14 +42,12 @@ class SearchController: UIViewController {
     
     //MARK: functions
     func updateView() {
-        listIngredientsTextView.layer.shadowColor = UIColor.black.cgColor
-        listIngredientsTextView.layer.shadowOpacity = 1
-        listIngredientsTextView.layer.shadowOffset = .zero
-        listIngredientsTextView.layer.shadowRadius = 10
+        ingredientsTableView.backgroundView?.backgroundColor = UIColor(named: "white")
     }
     
     func fetchRecipesFromEdamam() {
-        service.getData(ingredients: self.ingredientsInRequest, fromIndex: 0, toIndex: 2) { result in
+//        service.getData(ingredients: self.ingredientsInRequest, fromIndex: 0, toIndex: 6) { result in
+        service.getData(ingredients: "lemon", fromIndex: 0, toIndex: 6) { result in
             switch result {
             case .success(let recipesApi) :
                 for item in recipesApi.hits {
@@ -86,13 +85,7 @@ class SearchController: UIViewController {
     }
     
     func showListIngredients() {
-        print(ingredientList)
-        var text = ""
-        for ingredient in ingredientList {
-            text = "\(text)\n - \(ingredient)"
-            print(text)
-        }
-        listIngredientsTextView.text = text
+        ingredientsTableView.reloadData()
     }
     
     func updateIngredientsInRequest() {
@@ -150,3 +143,20 @@ class SearchController: UIViewController {
     }
 }
 
+extension SearchController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        ingredientList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        var content = cell.defaultContentConfiguration()
+        content.text = "\(ingredientList[indexPath.row])"
+
+        cell.contentConfiguration = content
+        
+        return cell
+    }
+    
+    
+}

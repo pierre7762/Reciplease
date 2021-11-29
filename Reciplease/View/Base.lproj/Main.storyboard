@@ -51,10 +51,10 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="705"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="w1b-LP-0cZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="595"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oR9-qB-RGt">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="595"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's in your fridge ?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKC-fq-bAL">
                                                         <rect key="frame" x="5" y="12" width="404" height="30"/>
@@ -98,23 +98,35 @@
                                                             <constraint firstAttribute="height" constant="40" id="m8J-sp-RSg"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5oo-Zp-iU9">
+                                                        <rect key="frame" x="20" y="120" width="374" height="455"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="uLG-e8-PQh" id="fue-Cx-bvv"/>
+                                                            <outlet property="delegate" destination="uLG-e8-PQh" id="VSy-87-EZg"/>
+                                                        </connections>
+                                                    </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="OK2-0s-mQS" secondAttribute="trailing" constant="12" id="4Fp-80-a1d"/>
-                                                    <constraint firstAttribute="height" constant="120" id="974-P1-NbR"/>
+                                                    <constraint firstItem="OK2-0s-mQS" firstAttribute="top" secondItem="HKC-fq-bAL" secondAttribute="bottom" constant="18" id="KG1-7x-EYD"/>
                                                     <constraint firstItem="HKC-fq-bAL" firstAttribute="leading" secondItem="oR9-qB-RGt" secondAttribute="leading" constant="5" id="MuO-dW-Vyd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5oo-Zp-iU9" secondAttribute="bottom" constant="20" id="O0U-ee-K2N"/>
+                                                    <constraint firstAttribute="trailing" secondItem="5oo-Zp-iU9" secondAttribute="trailing" constant="20" id="OV2-gP-Ha1"/>
                                                     <constraint firstItem="HKC-fq-bAL" firstAttribute="top" secondItem="oR9-qB-RGt" secondAttribute="top" constant="12" id="Oh2-i8-xzD"/>
                                                     <constraint firstItem="OK2-0s-mQS" firstAttribute="leading" secondItem="oR9-qB-RGt" secondAttribute="leading" constant="12" id="Ulc-g3-EZo"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HKC-fq-bAL" secondAttribute="trailing" id="igg-1A-K2J"/>
-                                                    <constraint firstAttribute="bottom" secondItem="OK2-0s-mQS" secondAttribute="bottom" constant="20" id="ss0-ug-ARx"/>
+                                                    <constraint firstItem="5oo-Zp-iU9" firstAttribute="leading" secondItem="oR9-qB-RGt" secondAttribute="leading" constant="20" id="sPi-f5-Lug"/>
                                                     <constraint firstItem="HKC-fq-bAL" firstAttribute="centerX" secondItem="oR9-qB-RGt" secondAttribute="centerX" id="wHz-GI-YpF"/>
+                                                    <constraint firstItem="5oo-Zp-iU9" firstAttribute="top" secondItem="OK2-0s-mQS" secondAttribute="bottom" constant="20" id="zYW-h8-1JP"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="XYl-ri-dnf">
-                                        <rect key="frame" x="20" y="125" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="600" width="374" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Ingredients :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYT-KL-sCd">
                                                 <rect key="frame" x="0.0" y="0.0" width="156" height="40"/>
@@ -141,13 +153,6 @@
                                             <constraint firstAttribute="height" constant="40" id="JR8-P5-JXZ"/>
                                         </constraints>
                                     </stackView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="euA-y4-iMP">
-                                        <rect key="frame" x="20" y="170" width="374" height="470"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="m5k-WP-UuP">
                                         <rect key="frame" x="188.5" y="642.5" width="37" height="0.0"/>
                                         <color key="color" red="0.38356193900000002" green="0.53995591399999998" blue="0.1763699651" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -169,12 +174,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="XYl-ri-dnf" secondAttribute="trailing" constant="20" id="2UD-QL-NOi"/>
-                                    <constraint firstItem="euA-y4-iMP" firstAttribute="leading" secondItem="mZc-wt-ZWj" secondAttribute="leading" constant="20" id="5QM-ts-ROR"/>
                                     <constraint firstItem="w1b-LP-0cZ" firstAttribute="top" secondItem="mZc-wt-ZWj" secondAttribute="top" id="GLV-A8-olg"/>
                                     <constraint firstItem="XYl-ri-dnf" firstAttribute="leading" secondItem="mZc-wt-ZWj" secondAttribute="leading" constant="20" id="Pz4-We-XMa"/>
                                     <constraint firstItem="XYl-ri-dnf" firstAttribute="top" secondItem="w1b-LP-0cZ" secondAttribute="bottom" constant="5" id="RLu-pO-te4"/>
                                     <constraint firstAttribute="trailing" secondItem="w1b-LP-0cZ" secondAttribute="trailing" id="cAt-6b-SpG"/>
-                                    <constraint firstAttribute="trailing" secondItem="euA-y4-iMP" secondAttribute="trailing" constant="20" id="jyh-hM-jmF"/>
                                     <constraint firstItem="w1b-LP-0cZ" firstAttribute="leading" secondItem="mZc-wt-ZWj" secondAttribute="leading" id="kGH-Ok-ESr"/>
                                 </constraints>
                             </stackView>
@@ -191,7 +194,7 @@
                     <navigationItem key="navigationItem" title="Reciplease" id="VFI-8U-rj0"/>
                     <connections>
                         <outlet property="activityIndicator" destination="m5k-WP-UuP" id="Esz-Xo-EYv"/>
-                        <outlet property="listIngredientsTextView" destination="euA-y4-iMP" id="yIr-pD-CJw"/>
+                        <outlet property="ingredientsTableView" destination="5oo-Zp-iU9" id="RUB-kG-eWS"/>
                         <outlet property="searchButton" destination="d86-3f-v1e" id="9bS-71-TmK"/>
                         <outlet property="searchTextField" destination="K6F-7E-dkv" id="0da-1t-EO1"/>
                         <segue destination="ELL-MS-KPz" kind="show" identifier="resultOfRecipesSearch" id="aoz-PP-QXN"/>
@@ -301,6 +304,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="yWe-Xn-v4M"/>
+                    <connections>
+                        <outlet property="favoriteRecipeTableView" destination="EM1-YS-ktI" id="DUN-LU-RDV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ats-NH-oUV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -503,7 +509,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Reciplease" id="h7k-Mn-Sdf">
-                        <barButtonItem key="rightBarButtonItem" image="star" catalog="system" id="oic-qj-LMX"/>
+                        <barButtonItem key="rightBarButtonItem" image="star" catalog="system" id="oic-qj-LMX">
+                            <connections>
+                                <action selector="favoriteButtonPressed:" destination="mFt-Ci-bwz" id="Xos-IO-ksh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="favoriteBarButton" destination="oic-qj-LMX" id="zZj-8q-13g"/>

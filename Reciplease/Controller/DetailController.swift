@@ -16,31 +16,38 @@ class DetailController: UIViewController {
     @IBOutlet weak var recipeIngredientsQuantityTextField: UITextView!
     
     //MARK: Variable
-    var recipe: Recipe!
+    var recipeSelected: Recipe!
+    private var coreDataManager: CoreDataManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        recipeImageView.load(urlString: recipe.image)
-        recipeNameLabel.text = recipe.name
+        
+        recipeImageView.load(urlString: recipeSelected.image)
+        recipeNameLabel.text = recipeSelected.name
         recipeIngredientsQuantityTextField.text = renderIngredientsLines()
 //        updateFavoriteButton()
+        //MARK: To fetch the scene delegate
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as? SceneDelegate else { return }
+        let coreDataStack = sceneDelegate.coreDataStack
+        coreDataManager = CoreDataManager(coreDataStack: coreDataStack)
     }
     
     //MARK: Function
     func renderIngredientsLines() -> String{
         var text = ""
-        for item in recipe.ingredientsLines {
+        for item in recipeSelected.ingredientsLines {
             text = "\(text)\n - \(item)"
         }
         return text
     }
     
     func updateFavoriteButton() {
-        if recipe.favorite {
+        if recipeSelected.favorite {
             favoriteBarButton.image = UIImage(named: "star")
         } else {
             favoriteBarButton.image = UIImage(named: "star.fill")
         }
+        
     }
     
 //    func saveRecipe(recipe: Recipe) {
@@ -57,20 +64,15 @@ class DetailController: UIViewController {
     //MARK: Action
     
     @IBAction func goToRecipeWebPage(_ sender: UIButton) {
-        if let url = URL(string: recipe.urlToWebPageRecipe) {
+        if let url = URL(string: recipeSelected.urlToWebPageRecipe) {
             let safariVC = SFSafariViewController(url: url)
             present(safariVC, animated: true, completion: nil)
         }
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
-        if recipe.favorite {
-            recipe.favorite = false
-            updateFavoriteButton()
-        } else {
-            recipe.favorite = true
-            updateFavoriteButton()
-        }
+        self.coreDataManager?.addFavoriteRecipe(recipe: recipeSelected)
+        updateFavoriteButton()
     }
     
 

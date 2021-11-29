@@ -21,7 +21,7 @@ class ResultSearchController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "toDetail" else { return }
         guard let controller = segue.destination as? DetailController else { return }
-        controller.recipe = sender as? Recipe
+        controller.recipeSelected = sender as? Recipe
     }
     
     
