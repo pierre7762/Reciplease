@@ -15,8 +15,6 @@ target 'Reciplease' do
     # Pods for testing
   end
 
-  target 'RecipleaseUITests' do
-    # Pods for testing
-  end
+
 
 end

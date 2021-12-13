@@ -16,5 +16,6 @@ struct Recipe {
     var totalTime: Double
     var urlToWebPageRecipe: String
     var favorite: Bool = false
+    var calories: Double
    
 }

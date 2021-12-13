@@ -47,9 +47,10 @@ class SearchController: UIViewController {
     
     func fetchRecipesFromEdamam() {
 //        service.getData(ingredients: self.ingredientsInRequest, fromIndex: 0, toIndex: 6) { result in
-        service.getData(ingredients: "lemon", fromIndex: 0, toIndex: 6) { result in
+        service.getData(ingredients: "chicken", fromIndex: 0, toIndex: 5) { result in
             switch result {
             case .success(let recipesApi) :
+                print(recipesApi)
                 for item in recipesApi.hits {
                     let recipe = Recipe(
                         name: item.recipe.label,
@@ -57,8 +58,11 @@ class SearchController: UIViewController {
                         ingredientsLines: item.recipe.ingredientLines,
                         ingredients: item.recipe.ingredients,
                         totalTime: Double(item.recipe.totalTime),
-                        urlToWebPageRecipe: item.recipe.url
+                        urlToWebPageRecipe: item.recipe.url,
+                        calories: item.recipe.calories
+                        
                     )
+                    print(recipe)
                     self.recipeList.append(recipe)
                 }
 
@@ -101,6 +105,8 @@ class SearchController: UIViewController {
             if let newController = segue.destination as? ResultSearchController {
                 if let data = sender as? [Recipe] {
                     newController.data = data
+                    newController.lastIndexUsed = 5
+                    newController.ingredientList = ingredientsInRequest
                 }
             }
         }

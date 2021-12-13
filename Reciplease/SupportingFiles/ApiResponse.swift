@@ -30,13 +30,10 @@ struct RecipeAPI: Codable {
     let url: String
     let shareAs: String
     let yield: Int
-    let dietLabels, healthLabels, cautions, ingredientLines: [String]
+    let ingredientLines: [String]
     let ingredients: [Ingredient]
-//    let calories, totalWeight: Double
+    let calories, totalWeight: Double
     let totalTime: Int
-    let cuisineType, mealType, dishType: [String]
-//    let totalNutrients, totalDaily: [String: Total]
-//    let digest: [Digest]
 }
 
 // MARK: - Digest
@@ -65,12 +62,10 @@ struct Ingredient: Codable {
     let measure: String?
     let food: String
     let weight: Double
-    let foodCategory, foodID: String
     let image: String
 
     enum CodingKeys: String, CodingKey {
-        case text, quantity, measure, food, weight, foodCategory
-        case foodID = "foodId"
+        case text, quantity, measure, food, weight
         case image
     }
 }

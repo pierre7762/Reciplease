@@ -10,7 +10,6 @@
 		61E8FEA9D41E374D3FD1B5B5 /* Pods_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E09F43D688A7CA458944887 /* Pods_Reciplease.framework */; };
 		8F02358D273290FA0078ED6B /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F02358C273290FA0078ED6B /* Recipe.swift */; };
 		8F02358F27329CA90078ED6B /* ResultSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F02358E27329CA90078ED6B /* ResultSearchController.swift */; };
-		8F0235912732B77D0078ED6B /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0235902732B77D0078ED6B /* CustomCell.swift */; };
 		8F0235932732ECAC0078ED6B /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0235922732ECAC0078ED6B /* DetailController.swift */; };
 		8F0235952732F6280078ED6B /* ApiConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0235942732F6280078ED6B /* ApiConstant.swift */; };
 		8F0E6E032750CB7900C43C84 /* EdamamSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0E6E022750CB7900C43C84 /* EdamamSession.swift */; };
@@ -30,6 +29,10 @@
 		8FB4BA85272BE67B0029E668 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4BA83272BE67B0029E668 /* Reciplease.xcdatamodeld */; };
 		8FB4BA87272BE67E0029E668 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB4BA86272BE67E0029E668 /* Assets.xcassets */; };
 		8FB4BA8A272BE67E0029E668 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FB4BA88272BE67E0029E668 /* LaunchScreen.storyboard */; };
+		8FBAE96627679F780038B7DF /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBAE96427679F780038B7DF /* LoadingCell.swift */; };
+		8FBAE96727679F780038B7DF /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FBAE96527679F780038B7DF /* LoadingCell.xib */; };
+		8FCD86F7275A1BC600BA1A88 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD86F5275A1BC600BA1A88 /* RecipeTableViewCell.swift */; };
+		8FCD86F8275A1BC600BA1A88 /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */; };
 		B79E6E9EB28D407F514A1453 /* Pods_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920016FD420EA75154E7F359 /* Pods_RecipleaseTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +51,6 @@
 		831A52CEA125F3D52057AD4E /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
 		8F02358C273290FA0078ED6B /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		8F02358E27329CA90078ED6B /* ResultSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSearchController.swift; sourceTree = "<group>"; };
-		8F0235902732B77D0078ED6B /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		8F0235922732ECAC0078ED6B /* DetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
 		8F0235942732F6280078ED6B /* ApiConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstant.swift; sourceTree = "<group>"; };
 		8F0E6E022750CB7900C43C84 /* EdamamSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdamamSession.swift; sourceTree = "<group>"; };
@@ -71,6 +73,10 @@
 		8FB4BA89272BE67E0029E668 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FB4BA8B272BE67E0029E668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FB4BA90272BE67E0029E668 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FBAE96427679F780038B7DF /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
+		8FBAE96527679F780038B7DF /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
+		8FCD86F5275A1BC600BA1A88 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
+		8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
 		920016FD420EA75154E7F359 /* Pods_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E09F43D688A7CA458944887 /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B543EFBD46AFA8E6F0821956 /* Pods-Reciplease-RecipleaseUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease-RecipleaseUITests.release.xcconfig"; path = "Target Support Files/Pods-Reciplease-RecipleaseUITests/Pods-Reciplease-RecipleaseUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -166,7 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				8FB4BA80272BE67B0029E668 /* Main.storyboard */,
-				8F0235902732B77D0078ED6B /* CustomCell.swift */,
+				8FCD86F5275A1BC600BA1A88 /* RecipeTableViewCell.swift */,
+				8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */,
+				8FBAE96427679F780038B7DF /* LoadingCell.swift */,
+				8FBAE96527679F780038B7DF /* LoadingCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -308,6 +317,8 @@
 				8FB4BA8A272BE67E0029E668 /* LaunchScreen.storyboard in Resources */,
 				8FB4BA87272BE67E0029E668 /* Assets.xcassets in Resources */,
 				8FB4BA82272BE67B0029E668 /* Main.storyboard in Resources */,
+				8FBAE96727679F780038B7DF /* LoadingCell.xib in Resources */,
+				8FCD86F8275A1BC600BA1A88 /* RecipeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,16 +406,17 @@
 				8FB4BA85272BE67B0029E668 /* Reciplease.xcdatamodeld in Sources */,
 				8FB4BA7F272BE67B0029E668 /* SearchController.swift in Sources */,
 				8F02358D273290FA0078ED6B /* Recipe.swift in Sources */,
-				8F0235912732B77D0078ED6B /* CustomCell.swift in Sources */,
 				8F0E6E052750CF2400C43C84 /* RequestService.swift in Sources */,
 				8FA21157273190F000ABD3D6 /* ApiResponse.swift in Sources */,
 				8FAFE076273452E000512639 /* FavoriteController.swift in Sources */,
 				8F0E6E032750CB7900C43C84 /* EdamamSession.swift in Sources */,
 				8FB4BA7B272BE67B0029E668 /* AppDelegate.swift in Sources */,
+				8FBAE96627679F780038B7DF /* LoadingCell.swift in Sources */,
 				8F0235932732ECAC0078ED6B /* DetailController.swift in Sources */,
 				8FB4BA7D272BE67B0029E668 /* SceneDelegate.swift in Sources */,
 				8F0E6E142751398200C43C84 /* CoreDataManager.swift in Sources */,
 				8F0235952732F6280078ED6B /* ApiConstant.swift in Sources */,
+				8FCD86F7275A1BC600BA1A88 /* RecipeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +584,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3GJVGX425T;
@@ -602,6 +615,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3GJVGX425T;

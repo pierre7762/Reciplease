@@ -8,12 +8,21 @@
 import UIKit
 
 class ResultSearchController: UITableViewController {
-    
+    @IBOutlet var recipeTableView: UITableView!
     
     var data: [Recipe]!
+    var lastIndexUsed: Int!
+    var ingredientList: String!
+    private let service: RequestService = RequestService()
+    var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nibName = UINib(nibName: "RecipeTableViewCell", bundle: nil)
+        recipeTableView.register(nibName, forCellReuseIdentifier: "recipeCell")
+        
+        let loadingCellNib = UINib(nibName: "LoadingCell", bundle: nil)
+        recipeTableView.register(loadingCellNib, forCellReuseIdentifier: "loadingcellid")
         
     }
 
@@ -22,6 +31,51 @@ class ResultSearchController: UITableViewController {
         guard segue.identifier == "toDetail" else { return }
         guard let controller = segue.destination as? DetailController else { return }
         controller.recipeSelected = sender as? Recipe
+        controller.recipeFrom = "ResultSearchController"
+        
+    }
+    
+    func fetchRecipesFromEdamam(from: Int, to: Int) {
+        service.getData(ingredients: ingredientList, fromIndex: from, toIndex: to) { result in
+//            self.service.getData(ingredients: "lemon", fromIndex: 6, toIndex: 10) { result in
+            switch result {
+            case .success(let recipesApi) :
+//                print(recipesApi)
+                for item in recipesApi.hits {
+                    let recipe = Recipe(
+                        name: item.recipe.label,
+                        image: item.recipe.image,
+                        ingredientsLines: item.recipe.ingredientLines,
+                        ingredients: item.recipe.ingredients,
+                        totalTime: Double(item.recipe.totalTime),
+                        urlToWebPageRecipe: item.recipe.url,
+                        calories: item.recipe.calories
+
+                    )
+                    print(recipe)
+                    self.data.append(recipe)
+                }
+                self.recipeTableView.reloadData()
+                self.isLoading = false
+
+            case .failure(_):
+                break
+            }
+        }
+        
+        
+        self.tableView.reloadData()
+        self.isLoading = false
+    }
+    
+    func loadMoreData() {
+        if !self.isLoading {
+            self.isLoading = true
+            let start = data.count
+            let end = start + 5
+//            sleep(2)
+            fetchRecipesFromEdamam(from: start, to: end)
+        }
     }
     
     
@@ -31,36 +85,54 @@ class ResultSearchController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return data.count
+        if section == 0 {
+            return data.count
+        } else if section == 1 {
+            return 1
+        } else {
+            return 0
+        }
     }
 
+
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return data.count
+//    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = recipeTableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! RecipeTableViewCell
         let recipe = data[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell") as? CustomCell{
-            cell.recipe = recipe
-            cell.setupCell(recipe)
-            return cell
-        } else {
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-            
-            cell.textLabel?.text = recipe.name
-            return cell
-        }
-   
+        cell.recipe = recipe
+        cell.setupCell()
+        
+        return cell
+        
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        if indexPath.section == 0 {
+            return 250 //Item Cell height
+        } else {
+            return 400 //Loading Cell height
+        }
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipe = data[indexPath.row]
         performSegue(withIdentifier: "toDetail", sender: recipe)
     }
 
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+
+        if (offsetY > contentHeight - scrollView.frame.height * 1) && !isLoading {
+            loadMoreData()
+        }
+    }
     
 
 }
