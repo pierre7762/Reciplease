@@ -11,7 +11,7 @@ import CoreData
 final class CoreDataManager {
 
     // MARK: - Properties
-
+    
     private let coreDataStack: CoreDataStack
     private let managedObjectContext: NSManagedObjectContext
 
@@ -35,7 +35,6 @@ final class CoreDataManager {
         let favoriteRecip = FavoriteRecipe(context: managedObjectContext)
         favoriteRecip.name = recipe.name
         favoriteRecip.image = recipe.image
-//        favoriteRecip.ingredientsList = ingredientsL as NSSet
         favoriteRecip.ingredientsLines = recipe.ingredientsLines
         favoriteRecip.totalTime = recipe.totalTime
         favoriteRecip.urlToWebPageRecipe = recipe.urlToWebPageRecipe
@@ -49,15 +48,9 @@ final class CoreDataManager {
             ingr.quantity = ingredient.quantity
             ingr.text = ingredient.text
             ingr.weight = ingredient.weight
-
         }
         
-//        print("------------------------------------")
-//        print(favoriteRecip)
-        
         coreDataStack.saveContext()
-        
-//        print("This recipe is favorite now")
     }
 
     func deleteFavoriteRecipe(index: Int) {

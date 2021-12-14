@@ -26,14 +26,12 @@ class RecipeTableViewCell: UITableViewCell {
             backgroundImageView.load(urlString: recipe.image)
             recipeNameLabel.text = recipe.name
             ingredientsLabel.text = renderIngredientsListInOneString(recipe: recipe)
-            delayLabel.text = returnTime(seconds: Int(recipe.totalTime))
+            delayLabel.text = returnTime(minutes: Int(recipe.totalTime))
             caloriesLabel.text = "\(Int(recipe.calories)) calories"
         }
     }
     
-   
     //MARK: Functions
-    
     func commonInit(imageName: String, name: String, ingredients: String, delay: String) {
         backgroundImageView.image = UIImage(named: imageName)
         recipeNameLabel.text = name
@@ -51,23 +49,22 @@ class RecipeTableViewCell: UITableViewCell {
         return theString
     }
     
-    func secondsToHoursMinutes (seconds : Int) -> (Int, Int) {
-       (seconds / 3600, (seconds % 3600) / 60)
+    func minutesToHoursMinutes (seconds : Int) -> (Int, Int) {
+       (seconds / 60, (seconds % 60))
     }
     
-    func returnTime(seconds: Int) -> String {
-        let (h, m) = secondsToHoursMinutes(seconds: seconds)
+    func returnTime(minutes: Int) -> String {
+        let (h, m) = minutesToHoursMinutes(seconds: minutes)
         
         if h == 0 && m > 0 {
-            return "\(m)m"
+            return "⏱ \(m)min"
         } else if m == 0 && h > 0 {
-            return "\(h)h"
+            return "⏱ \(h)h"
         } else if h == 0 && m == 0 {
-            return "?"
+            return "⏱ unknown"
         } else {
-            return "\(h)h\(m)"
+            return "⏱ \(h)h\(m)"
         }
-//        return "\(seconds)"
     }
     
     func setupCell() {

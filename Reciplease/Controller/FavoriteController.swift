@@ -46,22 +46,18 @@ class FavoriteController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritList.count
+        favoritList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favoriteRecipeTableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! RecipeTableViewCell
         let favoriteToShow = favoritList[indexPath.row]
-
         let ingredients = favoriteToShow.ingredientsList?.allObjects as! [FavoriteIngredient]
-
         let favoriteToRecipeType = Recipe(
             name: favoriteToShow.name! as String,
             image: favoriteToShow.image! as String,
@@ -75,7 +71,6 @@ class FavoriteController: UITableViewController {
         cell.setupCell()
         
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -87,13 +82,12 @@ class FavoriteController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        250
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favoriteToShow = favoritList[indexPath.row]
         let ingredients = favoriteToShow.ingredientsList?.allObjects as! [FavoriteIngredient]
-        
         let favoriteToRecipeType = Recipe(
             name: favoriteToShow.name! as String,
             image: favoriteToShow.image! as String,
@@ -105,6 +99,17 @@ class FavoriteController: UITableViewController {
         )
         performSegue(withIdentifier: "toDetailFromFavorite", sender: favoriteToRecipeType)
     }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Find your favorite recipes here!"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }
 
-
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return favoritList.isEmpty ? 500 : 0
+    }
 }

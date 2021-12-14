@@ -14,16 +14,20 @@ class SearchController: UIViewController {
     @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var searchStack: UIStackView!
+    @IBOutlet weak var ingredientsListStack: UIStackView!
+    @IBOutlet weak var ingredientsListView: UIView!
+    
     
     
     //MARK: variables
-//    var search = Search()
     let api = ApiConstant()
     var searchText = ""
     var urlToNextPage = ""
     var readyToShow = false
     private let baseUrl: String = ""
-    
     
     var ingredientsInRequest: String = ""
     var recipeList: [Recipe] = []
@@ -41,14 +45,27 @@ class SearchController: UIViewController {
         showListIngredients()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        recipeList = []
+    }
+    
     //MARK: functions
     func updateView() {
         ingredientsTableView.backgroundView?.backgroundColor = UIColor(named: "white")
+        searchButton.layer.cornerRadius = 12
+        addButton.layer.cornerRadius = 12
+        clearButton.layer.cornerRadius = 12
+        
+        ingredientsListView.layer.cornerRadius = 12
+        ingredientsListView.layer.borderWidth = 3
+        ingredientsListView.layer.borderColor = UIColor.darkGray.cgColor
+        ingredientsListView.layer.shadowRadius = 12
+        ingredientsListView.layer.shadowOpacity = 0.3
     }
     
     func fetchRecipesFromEdamam() {
-//        service.getData(ingredients: self.ingredientsInRequest, fromIndex: 0, toIndex: 6) { result in
-        service.getData(ingredients: "chicken") { result in
+        service.getData(ingredients: self.ingredientsInRequest) { result in
             switch result {
             case .success(let recipesApi) :
                 self.urlToNextPage = recipesApi.links.next.href
@@ -69,6 +86,7 @@ class SearchController: UIViewController {
                 self.loading(load: false)
                 self.performSegue(withIdentifier: "resultOfRecipesSearch", sender: self.recipeList)
             case .failure(_):
+                self.showAlert()
                 break
             }
         }
@@ -79,11 +97,10 @@ class SearchController: UIViewController {
     }
     
     func showAlert() {
-        let alert = UIAlertController(title: "No recipe found !", message: "Please, check the list of ingredients.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "No recipe found !", message: "Please check the ingredient list.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
             self.loading(load: false)
-        }
-    ))
+        }))
 
         self.present(alert, animated: true)
     }
@@ -119,12 +136,10 @@ class SearchController: UIViewController {
             searchButton.layer.isHidden = false
             activityIndicator.layer.isHidden = true
         }
-        
     }
     
     //MARK: actions
     @IBAction func addIngredient(_ sender: Any) {
-//        search.addIngredientInList(ingredientName: searchText)
         ingredientList.append(searchText)
         searchText = ""
         searchTextField.text = ""
@@ -136,7 +151,6 @@ class SearchController: UIViewController {
     }
     
     @IBAction func resetList(_ sender: Any) {
-//        search.resetIngredientInList()
         ingredientList.removeAll()
         showListIngredients()
     }
@@ -163,5 +177,25 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Add some ingredients in the list"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        return label
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return ingredientList.isEmpty ? 200 : 0
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            ingredientList.remove(at: indexPath.row)
+            updateIngredientsInRequest()
+            ingredientsTableView.reloadData()
+        }
+    }
     
 }

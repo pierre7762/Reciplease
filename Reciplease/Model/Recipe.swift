@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Recipe {
     var name: String
     var image: String
@@ -17,5 +16,4 @@ struct Recipe {
     var urlToWebPageRecipe: String
     var favorite: Bool = false
     var calories: Double
-   
 }

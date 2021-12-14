@@ -21,6 +21,8 @@
 		8F0E6E122751392300C43C84 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0E6E112751392300C43C84 /* CoreDataStack.swift */; };
 		8F0E6E142751398200C43C84 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0E6E132751398200C43C84 /* CoreDataManager.swift */; };
 		8FA21157273190F000ABD3D6 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA21156273190F000ABD3D6 /* ApiResponse.swift */; };
+		8FA303982768EDE700327778 /* FakeCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA303972768EDE700327778 /* FakeCoreDataStack.swift */; };
+		8FA3039A2768EE6100327778 /* CoreDataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA303992768EE6100327778 /* CoreDataManagerTest.swift */; };
 		8FAFE076273452E000512639 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAFE075273452E000512639 /* FavoriteController.swift */; };
 		8FB4BA7B272BE67B0029E668 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4BA7A272BE67B0029E668 /* AppDelegate.swift */; };
 		8FB4BA7D272BE67B0029E668 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4BA7C272BE67B0029E668 /* SceneDelegate.swift */; };
@@ -29,8 +31,6 @@
 		8FB4BA85272BE67B0029E668 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FB4BA83272BE67B0029E668 /* Reciplease.xcdatamodeld */; };
 		8FB4BA87272BE67E0029E668 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FB4BA86272BE67E0029E668 /* Assets.xcassets */; };
 		8FB4BA8A272BE67E0029E668 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FB4BA88272BE67E0029E668 /* LaunchScreen.storyboard */; };
-		8FBAE96627679F780038B7DF /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBAE96427679F780038B7DF /* LoadingCell.swift */; };
-		8FBAE96727679F780038B7DF /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FBAE96527679F780038B7DF /* LoadingCell.xib */; };
 		8FCD86F7275A1BC600BA1A88 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD86F5275A1BC600BA1A88 /* RecipeTableViewCell.swift */; };
 		8FCD86F8275A1BC600BA1A88 /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */; };
 		B79E6E9EB28D407F514A1453 /* Pods_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920016FD420EA75154E7F359 /* Pods_RecipleaseTests.framework */; };
@@ -62,6 +62,8 @@
 		8F0E6E112751392300C43C84 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		8F0E6E132751398200C43C84 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		8FA21156273190F000ABD3D6 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		8FA303972768EDE700327778 /* FakeCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCoreDataStack.swift; sourceTree = "<group>"; };
+		8FA303992768EE6100327778 /* CoreDataManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTest.swift; sourceTree = "<group>"; };
 		8FAFE075273452E000512639 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
 		8FB4BA77272BE67B0029E668 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB4BA7A272BE67B0029E668 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,8 +75,6 @@
 		8FB4BA89272BE67E0029E668 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FB4BA8B272BE67E0029E668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FB4BA90272BE67E0029E668 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FBAE96427679F780038B7DF /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
-		8FBAE96527679F780038B7DF /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		8FCD86F5275A1BC600BA1A88 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
 		920016FD420EA75154E7F359 /* Pods_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +126,26 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		8FA303952768EDA000327778 /* EdamamRequestTest */ = {
+			isa = PBXGroup;
+			children = (
+				8F0E6E082751100800C43C84 /* FakeEdamamSession.swift */,
+				8F0E6E0A2751126900C43C84 /* FakeResponseData.swift */,
+				8F0E6E0C275112C200C43C84 /* Recipes.json */,
+				8F0E6E0E2751130900C43C84 /* RequestServiceTest.swift */,
+			);
+			path = EdamamRequestTest;
+			sourceTree = "<group>";
+		};
+		8FA303962768EDC000327778 /* CoreDataTest */ = {
+			isa = PBXGroup;
+			children = (
+				8FA303972768EDE700327778 /* FakeCoreDataStack.swift */,
+				8FA303992768EE6100327778 /* CoreDataManagerTest.swift */,
+			);
+			path = CoreDataTest;
+			sourceTree = "<group>";
+		};
 		8FB4BA6E272BE67B0029E668 = {
 			isa = PBXGroup;
 			children = (
@@ -160,10 +180,8 @@
 		8FB4BA93272BE67E0029E668 /* RecipleaseTests */ = {
 			isa = PBXGroup;
 			children = (
-				8F0E6E082751100800C43C84 /* FakeEdamamSession.swift */,
-				8F0E6E0A2751126900C43C84 /* FakeResponseData.swift */,
-				8F0E6E0C275112C200C43C84 /* Recipes.json */,
-				8F0E6E0E2751130900C43C84 /* RequestServiceTest.swift */,
+				8FA303962768EDC000327778 /* CoreDataTest */,
+				8FA303952768EDA000327778 /* EdamamRequestTest */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -174,8 +192,6 @@
 				8FB4BA80272BE67B0029E668 /* Main.storyboard */,
 				8FCD86F5275A1BC600BA1A88 /* RecipeTableViewCell.swift */,
 				8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */,
-				8FBAE96427679F780038B7DF /* LoadingCell.swift */,
-				8FBAE96527679F780038B7DF /* LoadingCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -317,7 +333,6 @@
 				8FB4BA8A272BE67E0029E668 /* LaunchScreen.storyboard in Resources */,
 				8FB4BA87272BE67E0029E668 /* Assets.xcassets in Resources */,
 				8FB4BA82272BE67B0029E668 /* Main.storyboard in Resources */,
-				8FBAE96727679F780038B7DF /* LoadingCell.xib in Resources */,
 				8FCD86F8275A1BC600BA1A88 /* RecipeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,7 +426,6 @@
 				8FAFE076273452E000512639 /* FavoriteController.swift in Sources */,
 				8F0E6E032750CB7900C43C84 /* EdamamSession.swift in Sources */,
 				8FB4BA7B272BE67B0029E668 /* AppDelegate.swift in Sources */,
-				8FBAE96627679F780038B7DF /* LoadingCell.swift in Sources */,
 				8F0235932732ECAC0078ED6B /* DetailController.swift in Sources */,
 				8FB4BA7D272BE67B0029E668 /* SceneDelegate.swift in Sources */,
 				8F0E6E142751398200C43C84 /* CoreDataManager.swift in Sources */,
@@ -424,8 +438,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FA3039A2768EE6100327778 /* CoreDataManagerTest.swift in Sources */,
 				8F0E6E092751100800C43C84 /* FakeEdamamSession.swift in Sources */,
 				8F0E6E0B2751126900C43C84 /* FakeResponseData.swift in Sources */,
+				8FA303982768EDE700327778 /* FakeCoreDataStack.swift in Sources */,
 				8F0E6E0F2751130900C43C84 /* RequestServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

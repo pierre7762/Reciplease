@@ -46,7 +46,6 @@ class DetailController: UIViewController {
                 urlToWebPageRecipe: $0.urlToWebPageRecipe!,
                 calories: $0.calories
             )
-            
         }
         updateFavoriteButton()
     }
@@ -83,7 +82,6 @@ class DetailController: UIViewController {
                 favoriteBarButton.image = UIImage(named: "heart.png")
             }
         }
-        
     }
     
     //MARK: Action
@@ -121,12 +119,9 @@ class DetailController: UIViewController {
                 print("not selected")
                 self.coreDataManager?.addFavoriteRecipe(recipe: recipeSelected)
                 self.favoriteBarButton.image = UIImage(named: "heartSelected.png")
-           
             }
         }
     }
-    
-
 }
 
 extension DetailController: UITableViewDelegate, UITableViewDataSource {
@@ -138,12 +133,9 @@ extension DetailController: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
         content.text = "\(recipeSelected.ingredients[indexPath.row].text)"
-        
 
         cell.contentConfiguration = content
         
         return cell
     }
-    
-    
 }
