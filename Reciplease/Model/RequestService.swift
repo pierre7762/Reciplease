@@ -20,8 +20,28 @@ final class RequestService {
         self.session = session
     }
     
-    func getData(ingredients: String,fromIndex: Int, toIndex: Int, callback: @escaping (Result<RecipesAPi, EdamamError>) -> Void) {
-        guard let url = URL(string: "\(self.api.edamamBaseUrl)?q=\(ingredients)&app_id=\(self.api.edamamId)&app_key=\(self.api.edamamKey)&from=\(fromIndex)&to=\(toIndex)") else { return }
+    func getData(ingredients: String, callback: @escaping (Result<RecipesAPi, EdamamError>) -> Void) {
+        guard let url = URL(string: "\(self.api.edamamBaseUrl)&q=\(ingredients)&app_id=\(self.api.edamamId)&app_key=\(self.api.edamamKey)") else { return }
+        session.request(url: url) { dataResponse in
+            guard let data = dataResponse.data else {
+                callback(.failure(.noData))
+                return
+            }
+            guard dataResponse.response?.statusCode == 200 else {
+                callback(.failure(.invalidResponse))
+                return
+            }
+            guard let dataDecoded = try? JSONDecoder().decode(RecipesAPi.self, from: data) else {
+                callback(.failure(.undecodableData))
+                return
+            }
+            callback(.success(dataDecoded))
+            
+        }
+    }
+    
+    func getNextPage(urlNextPage: String, callback: @escaping (Result<RecipesAPi, EdamamError>) -> Void) {
+        guard let url = URL(string: "\(urlNextPage)") else { return }
         session.request(url: url) { dataResponse in
             guard let data = dataResponse.data else {
                 callback(.failure(.noData))

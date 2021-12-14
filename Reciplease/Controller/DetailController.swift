@@ -13,7 +13,7 @@ class DetailController: UIViewController {
     @IBOutlet weak var favoriteBarButton: UIBarButtonItem!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeNameLabel: UILabel!
-    @IBOutlet weak var recipeIngredientsQuantityTextField: UITextView!
+    @IBOutlet weak var ingredientsTableView: UITableView!
     
     //MARK: Variable
     var recipeSelected: Recipe!
@@ -29,6 +29,7 @@ class DetailController: UIViewController {
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as? SceneDelegate else { return }
         let coreDataStack = sceneDelegate.coreDataStack
         coreDataManager = CoreDataManager(coreDataStack: coreDataStack)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,7 +55,6 @@ class DetailController: UIViewController {
     func updateView() {
         recipeImageView.load(urlString: recipeSelected.image)
         recipeNameLabel.text = recipeSelected.name
-        recipeIngredientsQuantityTextField.text = renderIngredientsLines()
         updateFavoriteButton()
     }
     
@@ -102,7 +102,7 @@ class DetailController: UIViewController {
                 if fav.name == recipeSelected.name {
                     self.coreDataManager?.deleteFavoriteRecipe(index: list.firstIndex(of: fav)!)
                     print("delete")
-                    _ = navigationController?.popViewController(animated: true)
+                    navigationController?.popViewController(animated: true)
                 }
             }
             
@@ -121,9 +121,29 @@ class DetailController: UIViewController {
                 print("not selected")
                 self.coreDataManager?.addFavoriteRecipe(recipe: recipeSelected)
                 self.favoriteBarButton.image = UIImage(named: "heartSelected.png")
+           
             }
         }
     }
     
 
+}
+
+extension DetailController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        recipeSelected.ingredients.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        var content = cell.defaultContentConfiguration()
+        content.text = "\(recipeSelected.ingredients[indexPath.row].text)"
+        
+
+        cell.contentConfiguration = content
+        
+        return cell
+    }
+    
+    
 }

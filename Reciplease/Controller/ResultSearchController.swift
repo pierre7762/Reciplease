@@ -11,8 +11,7 @@ class ResultSearchController: UITableViewController {
     @IBOutlet var recipeTableView: UITableView!
     
     var data: [Recipe]!
-    var lastIndexUsed: Int!
-    var ingredientList: String!
+    var urlToNextPage: String!
     private let service: RequestService = RequestService()
     var isLoading = false
     
@@ -23,7 +22,6 @@ class ResultSearchController: UITableViewController {
         
         let loadingCellNib = UINib(nibName: "LoadingCell", bundle: nil)
         recipeTableView.register(loadingCellNib, forCellReuseIdentifier: "loadingcellid")
-        
     }
 
     //MARK: functions
@@ -35,12 +33,11 @@ class ResultSearchController: UITableViewController {
         
     }
     
-    func fetchRecipesFromEdamam(from: Int, to: Int) {
-        service.getData(ingredients: ingredientList, fromIndex: from, toIndex: to) { result in
-//            self.service.getData(ingredients: "lemon", fromIndex: 6, toIndex: 10) { result in
+    func fetchRecipesFromEdamam() {
+        service.getNextPage(urlNextPage: urlToNextPage) { result in
             switch result {
             case .success(let recipesApi) :
-//                print(recipesApi)
+                self.urlToNextPage = recipesApi.links.next.href
                 for item in recipesApi.hits {
                     let recipe = Recipe(
                         name: item.recipe.label,
@@ -52,7 +49,6 @@ class ResultSearchController: UITableViewController {
                         calories: item.recipe.calories
 
                     )
-                    print(recipe)
                     self.data.append(recipe)
                 }
                 self.recipeTableView.reloadData()
@@ -61,6 +57,7 @@ class ResultSearchController: UITableViewController {
             case .failure(_):
                 break
             }
+            
         }
         
         
@@ -68,38 +65,17 @@ class ResultSearchController: UITableViewController {
         self.isLoading = false
     }
     
-    func loadMoreData() {
-        if !self.isLoading {
-            self.isLoading = true
-            let start = data.count
-            let end = start + 5
-//            sleep(2)
-            fetchRecipesFromEdamam(from: start, to: end)
-        }
-    }
-    
-    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return data.count
-        } else if section == 1 {
-            return 1
-        } else {
-            return 0
-        }
+        // #warning Incomplete implementation, return the number of rows
+        return data.count
     }
-
-
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return data.count
-//    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = recipeTableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! RecipeTableViewCell
@@ -125,12 +101,10 @@ class ResultSearchController: UITableViewController {
         performSegue(withIdentifier: "toDetail", sender: recipe)
     }
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-
-        if (offsetY > contentHeight - scrollView.frame.height * 1) && !isLoading {
-            loadMoreData()
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == data.count - 1 {
+            fetchRecipesFromEdamam()
         }
     }
     
