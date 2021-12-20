@@ -210,6 +210,7 @@
 		8FB4BAAF272BE6E80029E668 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8FA21156273190F000ABD3D6 /* ApiResponse.swift */,
 				8F0E6E102751390300C43C84 /* CoreData */,
 				8F02358C273290FA0078ED6B /* Recipe.swift */,
 				8F0E6E022750CB7900C43C84 /* EdamamSession.swift */,
@@ -227,7 +228,6 @@
 				8FB4BA86272BE67E0029E668 /* Assets.xcassets */,
 				8FB4BA88272BE67E0029E668 /* LaunchScreen.storyboard */,
 				8F0235942732F6280078ED6B /* ApiConstant.swift */,
-				8FA21156273190F000ABD3D6 /* ApiResponse.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";

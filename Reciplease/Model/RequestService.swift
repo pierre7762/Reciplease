@@ -36,7 +36,6 @@ final class RequestService {
                 return
             }
             callback(.success(dataDecoded))
-            
         }
     }
     

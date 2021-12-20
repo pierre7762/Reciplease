@@ -20,6 +20,7 @@ class DetailController: UIViewController {
     var recipeFrom: String!
     private var coreDataManager: CoreDataManager?
     private var favoritList: [Recipe]! = []
+    private var isItFavorite: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,30 +35,19 @@ class DetailController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let list = coreDataManager?.favoriteRecipesList else { return }
-        favoritList = list.map {
-            let ingredients = $0.ingredientsList?.allObjects as! [FavoriteIngredient]
-            return Recipe(
-                name: $0.name!,
-                image: $0.image!,
-                ingredientsLines: $0.ingredientsLines!,
-                ingredients: ingredients.map {  Ingredient(text: $0.text!, quantity: $0.quantity, measure: $0.measure, food: $0.food!, weight: $0.weight, image: $0.image!)},
-                totalTime: $0.totalTime,
-                urlToWebPageRecipe: $0.urlToWebPageRecipe!,
-                calories: $0.calories
-            )
-        }
+        guard let checkFavorite = coreDataManager?.isItFavoriteRecipe(urlRecipe: recipeSelected.urlToWebPageRecipe) else { return }
+        isItFavorite = checkFavorite
         updateFavoriteButton()
     }
     
     //MARK: Function
-    func updateView() {
+    private func updateView() {
         recipeImageView.load(urlString: recipeSelected.image)
         recipeNameLabel.text = recipeSelected.name
         updateFavoriteButton()
     }
     
-    func renderIngredientsLines() -> String{
+    private func renderIngredientsLines() -> String{
         var text = ""
         for item in recipeSelected.ingredientsLines {
             text = "\(text)\n - \(item)"
@@ -65,18 +55,12 @@ class DetailController: UIViewController {
         return text
     }
     
-    func updateFavoriteButton() {
+    private func updateFavoriteButton() {
         if recipeFrom == "FavoriteController" {
             favoriteBarButton.image = UIImage(named: "heartSelected.png")
         } else {
-            var isSelected = false
-            for favorite in favoritList {
-                if recipeSelected.name == favorite.name {
-                    isSelected = true
-                }
-            }
             
-            if isSelected {
+            if isItFavorite {
                 favoriteBarButton.image = UIImage(named: "heartSelected.png")
             } else {
                 favoriteBarButton.image = UIImage(named: "heart.png")
@@ -88,32 +72,21 @@ class DetailController: UIViewController {
     
     @IBAction func goToRecipeWebPage(_ sender: UIButton) {
         if let url = URL(string: recipeSelected.urlToWebPageRecipe) {
-            let safariVC = SFSafariViewController(url: url)
-            present(safariVC, animated: true, completion: nil)
+            UIApplication.shared.open(url)
         }
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
         if recipeFrom == "FavoriteController" {
-            guard let list = coreDataManager?.favoriteRecipesList else { return }
-            for fav in list {
-                if fav.name == recipeSelected.name {
-                    self.coreDataManager?.deleteFavoriteRecipe(index: list.firstIndex(of: fav)!)
-                    print("delete")
-                    navigationController?.popViewController(animated: true)
-                }
-            }
+            coreDataManager?.deleteFavoriteRecipe(urlRecipe: recipeSelected.urlToWebPageRecipe)
+            print("delete")
+            navigationController?.popViewController(animated: true)
             
         } else if recipeFrom == "ResultSearchController" {
             if  favoriteBarButton.image == UIImage(named: "heartSelected.png") {
                 print("selecte")
-                guard let list = coreDataManager?.favoriteRecipesList else { return }
-                for fav in list {
-                    if fav.name == recipeSelected.name {
-                        self.coreDataManager?.deleteFavoriteRecipe(index: list.firstIndex(of: fav)!)
-                        print("delete")
-                    }
-                }
+                coreDataManager?.deleteFavoriteRecipe(urlRecipe: recipeSelected.urlToWebPageRecipe)
+                print("delete")
                 favoriteBarButton.image = UIImage(named: "heart.png")
             } else {
                 print("not selected")

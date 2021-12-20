@@ -13,7 +13,7 @@ class FavoriteController: UITableViewController {
     
     //MARK: Variable
     private var coreDataManager: CoreDataManager?
-    private var favoritList: [FavoriteRecipe]! = []
+    private var favoritList: [FavoriteRecipe] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +75,7 @@ class FavoriteController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            coreDataManager!.deleteFavoriteRecipe(index: indexPath.row)
+            coreDataManager!.deleteFavoriteRecipe(urlRecipe: favoritList[indexPath.row].urlToWebPageRecipe!)
             fetchDataFromCorData()
             favoriteRecipeTableView.reloadData()
         }
@@ -102,7 +102,7 @@ class FavoriteController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.text = "Find your favorite recipes here!"
+        label.text = "Add recipes from Search!"
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .white

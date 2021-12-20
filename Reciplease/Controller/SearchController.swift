@@ -23,16 +23,16 @@ class SearchController: UIViewController {
     
     
     //MARK: variables
-    let api = ApiConstant()
-    var searchText = ""
-    var urlToNextPage = ""
-    var readyToShow = false
+    private let api = ApiConstant()
+    private var searchText = ""
+    private var urlToNextPage = ""
+    private var readyToShow = false
     private let baseUrl: String = ""
     
-    var ingredientsInRequest: String = ""
-    var recipeList: [Recipe] = []
-    var ingredientList: [String] = []
-    var loading: Bool = false
+    private var ingredientsInRequest: String = ""
+    private var recipeList: [Recipe] = []
+    private var ingredientList: [String] = []
+    private var loading: Bool = false
     
     private let service: RequestService = RequestService()
 
@@ -51,7 +51,7 @@ class SearchController: UIViewController {
     }
     
     //MARK: functions
-    func updateView() {
+    private func updateView() {
         ingredientsTableView.backgroundView?.backgroundColor = UIColor(named: "white")
         searchButton.layer.cornerRadius = 12
         addButton.layer.cornerRadius = 12
@@ -64,11 +64,12 @@ class SearchController: UIViewController {
         ingredientsListView.layer.shadowOpacity = 0.3
     }
     
-    func fetchRecipesFromEdamam() {
-        service.getData(ingredients: self.ingredientsInRequest) { result in
+    private func fetchRecipesFromEdamam() {
+//        service.getData(ingredients: self.ingredientsInRequest) { [ weak self] result in
+        service.getData(ingredients: "chicken") { [ weak self] result in
             switch result {
             case .success(let recipesApi) :
-                self.urlToNextPage = recipesApi.links.next.href
+                self?.urlToNextPage = recipesApi.links.next.href
                 for item in recipesApi.hits {
                     let recipe = Recipe(
                         name: item.recipe.label,
@@ -80,13 +81,13 @@ class SearchController: UIViewController {
                         calories: item.recipe.calories
                         
                     )
-                    self.recipeList.append(recipe)
+                    self?.recipeList.append(recipe)
                 }
 
-                self.loading(load: false)
-                self.performSegue(withIdentifier: "resultOfRecipesSearch", sender: self.recipeList)
+                self?.loading(load: false)
+                self?.performSegue(withIdentifier: "resultOfRecipesSearch", sender: self?.recipeList)
             case .failure(_):
-                self.showAlert()
+                self?.showAlert()
                 break
             }
         }
@@ -96,7 +97,7 @@ class SearchController: UIViewController {
         view.endEditing(true)
     }
     
-    func showAlert() {
+    private func showAlert() {
         let alert = UIAlertController(title: "No recipe found !", message: "Please check the ingredient list.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
             self.loading(load: false)
@@ -105,11 +106,11 @@ class SearchController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    func showListIngredients() {
+    private func showListIngredients() {
         ingredientsTableView.reloadData()
     }
     
-    func updateIngredientsInRequest() {
+    private func updateIngredientsInRequest() {
         var text = ""
         for ingredient in ingredientList {
             text = "\(text)\(ingredient),"
@@ -128,7 +129,7 @@ class SearchController: UIViewController {
         }
     }
     
-    func loading(load: Bool) {
+    private func loading(load: Bool) {
         if load {
             searchButton.layer.isHidden = true
             activityIndicator.layer.isHidden = false
@@ -168,6 +169,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cellTest = tableView.dequeueReusableCell(withIdentifier: 'standardCell')
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
         content.text = "\(ingredientList[indexPath.row])"

@@ -13,7 +13,7 @@ class ResultSearchController: UITableViewController {
     var data: [Recipe]!
     var urlToNextPage: String!
     private let service: RequestService = RequestService()
-    var isLoading = false
+    private var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class ResultSearchController: UITableViewController {
         controller.recipeFrom = "ResultSearchController"
     }
     
-    func fetchRecipesFromEdamam() {
+    private func fetchRecipesFromEdamam() {
         service.getNextPage(urlNextPage: urlToNextPage) { result in
             switch result {
             case .success(let recipesApi) :
@@ -50,22 +50,18 @@ class ResultSearchController: UITableViewController {
                     self.data.append(recipe)
                 }
                 self.recipeTableView.reloadData()
-                self.isLoading = false
 
             case .failure(_):
+                let alert = UIAlertController(title: "Error", message: "The data can not be loaded.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 break
             }
         }
         
-        self.tableView.reloadData()
-        self.isLoading = false
     }
     
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         data.count
