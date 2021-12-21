@@ -82,8 +82,35 @@ class CoreDataManagerTest: XCTestCase {
         ))
         XCTAssertEqual(coreDataManager.favoriteRecipesList.count, 1)
         
-        coreDataManager.deleteFavoriteRecipe(index: 0)
+        coreDataManager.deleteFavoriteRecipe(urlRecipe: "https://test.test")
         
         XCTAssertEqual(coreDataManager.favoriteRecipesList.count, 0)
+    }
+    
+    func testisItFavoriteRecipeInCoreData_WhenWeWouldUpdateFavoriteIcon_ThenShouldReturnTrue() {
+        coreDataManager.addFavoriteRecipe(recipe: Recipe(
+            name: "Recipe test",
+            image: "",
+            ingredientsLines: ["line1", "line2"],
+            ingredients: [
+                Ingredient(
+                    text: "lemon",
+                    quantity: 0.5,
+                    measure: nil,
+                    food: "fruit",
+                    weight: 0.6,
+                    image: "String?"
+                )
+            ],
+            totalTime: 60,
+            urlToWebPageRecipe: "https://test.test",
+            calories: 100
+        ))
+        XCTAssertEqual(coreDataManager.favoriteRecipesList.count, 1)
+        
+        let expected = true
+        let response = coreDataManager.isItFavoriteRecipe(urlRecipe: "https://test.test")
+        
+        XCTAssertEqual(expected, response)
     }
 }

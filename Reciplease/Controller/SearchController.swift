@@ -65,15 +65,21 @@ class SearchController: UIViewController {
     }
     
     private func fetchRecipesFromEdamam() {
-//        service.getData(ingredients: self.ingredientsInRequest) { [ weak self] result in
-        service.getData(ingredients: "chicken") { [ weak self] result in
+        service.getData(ingredients: self.ingredientsInRequest) { [ weak self] result in
+//        service.getData(ingredients: "chicken") { [ weak self] result in
             switch result {
             case .success(let recipesApi) :
                 self?.urlToNextPage = recipesApi.links.next.href
                 for item in recipesApi.hits {
+                    var imageAdress = ""
+                    if item.recipe.image.isEmpty {
+                        imageAdress = "https://actunutrition.com/wp-content/uploads/2013/02/canstockphoto6878974.jpg"
+                    } else {
+                        imageAdress = item.recipe.image
+                    }
                     let recipe = Recipe(
                         name: item.recipe.label,
-                        image: item.recipe.image,
+                        image: imageAdress,
                         ingredientsLines: item.recipe.ingredientLines,
                         ingredients: item.recipe.ingredients,
                         totalTime: Double(item.recipe.totalTime),
@@ -169,7 +175,6 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cellTest = tableView.dequeueReusableCell(withIdentifier: 'standardCell')
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
         content.text = "\(ingredientList[indexPath.row])"
