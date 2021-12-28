@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-open class CoreDataStack {
+class CoreDataStack {
 
     // MARK: - Properties
 

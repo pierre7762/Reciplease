@@ -5,8 +5,7 @@
 //  Created by Pierre on 14/12/2021.
 //
 
-import Reciplease
-import Foundation
+@testable import Reciplease
 import CoreData
 
 final class FakeCoreDataStack: CoreDataStack {

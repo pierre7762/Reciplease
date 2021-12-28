@@ -7,9 +7,9 @@
 
 import UIKit
 
-class FavoriteController: UITableViewController {
+class FavoriteRecipeViewController: UITableViewController {
     //MARK: Outlet
-    @IBOutlet var favoriteRecipeTableView: UITableView!
+    @IBOutlet private var favoriteRecipeTableView: UITableView!
     
     //MARK: Variable
     private var coreDataManager: CoreDataManager?
@@ -40,9 +40,10 @@ class FavoriteController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "toDetailFromFavorite" else { return }
-        guard let controller = segue.destination as? DetailController else { return }
-        controller.recipeSelected = sender as? Recipe
-        controller.recipeFrom = "FavoriteController"
+        var recipeSelected = sender as? Recipe
+        recipeSelected?.recipceFromFavorite = true
+        guard let controller = segue.destination as? RecipeDetailViewController else { return }
+        controller.recipeSelected = recipeSelected
     }
 
     // MARK: - Table view data source

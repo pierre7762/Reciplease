@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - RecipesAPi
-struct RecipesAPi: Codable {
+struct RecipesAPi: Decodable {
     let from, to, count: Int
     let links: RecipesAPiLinks
     let hits: [Hit]
@@ -21,7 +21,7 @@ struct RecipesAPi: Codable {
 }
 
 // MARK: - Hit
-struct Hit: Codable {
+struct Hit: Decodable {
     let recipe: RecipeAPI
     let links: HitLinks
 
@@ -32,7 +32,7 @@ struct Hit: Codable {
 }
 
 // MARK: - HitLinks
-struct HitLinks: Codable {
+struct HitLinks: Decodable {
     let linksSelf: Next
 
     enum CodingKeys: String, CodingKey {
@@ -41,18 +41,18 @@ struct HitLinks: Codable {
 }
 
 // MARK: - Next
-struct Next: Codable {
+struct Next: Decodable {
     let href: String
     let title: Title
 }
 
-enum Title: String, Codable {
+enum Title: String, Decodable {
     case nextPage = "Next page"
     case titleSelf = "Self"
 }
 
 // MARK: - Recipe
-struct RecipeAPI: Codable {
+struct RecipeAPI: Decodable {
     let uri: String
     let label: String
     let image: String
@@ -63,7 +63,7 @@ struct RecipeAPI: Codable {
     let totalTime: Int
 }
 
-enum Unit: String, Codable {
+enum Unit: String, Decodable {
     case empty = "%"
     case g = "g"
     case kcal = "kcal"
@@ -72,7 +72,7 @@ enum Unit: String, Codable {
 }
 
 // MARK: - Ingredient
-struct Ingredient: Codable {
+struct Ingredient: Decodable {
     let text: String
     let quantity: Double
     let measure: String?
@@ -87,13 +87,13 @@ struct Ingredient: Codable {
 }
 
 // MARK: - Total
-struct Total: Codable {
+struct Total: Decodable {
     let label: String
     let quantity: Double
     let unit: Unit
 }
 
 // MARK: - RecipesAPiLinks
-struct RecipesAPiLinks: Codable {
+struct RecipesAPiLinks: Decodable {
     let next: Next
 }

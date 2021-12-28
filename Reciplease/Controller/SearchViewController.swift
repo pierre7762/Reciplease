@@ -8,30 +8,25 @@
 import UIKit
 import Alamofire
 
-class SearchController: UIViewController {
+class SearchViewController: UIViewController {
     //MARK: outlets
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var ingredientsTableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var clearButton: UIButton!
-    @IBOutlet weak var searchStack: UIStackView!
-    @IBOutlet weak var ingredientsListStack: UIStackView!
-    @IBOutlet weak var ingredientsListView: UIView!
-    
-    
+    @IBOutlet weak private var searchTextField: UITextField!
+    @IBOutlet weak private var ingredientsTableView: UITableView!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var searchButton: UIButton!
+    @IBOutlet weak private var addButton: UIButton!
+    @IBOutlet weak private var clearButton: UIButton!
+    @IBOutlet weak private var ingredientsListStack: UIStackView!
+    @IBOutlet weak private var ingredientsListView: UIView!
     
     //MARK: variables
     private let api = ApiConstant()
+    private let fridgeService = FridgeService()
     private var searchText = ""
     private var urlToNextPage = ""
     private var readyToShow = false
     private let baseUrl: String = ""
-    
-    private var ingredientsInRequest: String = ""
     private var recipeList: [Recipe] = []
-    private var ingredientList: [String] = []
     private var loading: Bool = false
     
     private let service: RequestService = RequestService()
@@ -50,7 +45,7 @@ class SearchController: UIViewController {
         recipeList = []
     }
     
-    //MARK: functions
+    //MARK: - functions
     private func updateView() {
         ingredientsTableView.backgroundView?.backgroundColor = UIColor(named: "white")
         searchButton.layer.cornerRadius = 12
@@ -65,8 +60,8 @@ class SearchController: UIViewController {
     }
     
     private func fetchRecipesFromEdamam() {
-        service.getData(ingredients: self.ingredientsInRequest) { [ weak self] result in
-//        service.getData(ingredients: "chicken") { [ weak self] result in
+        let ingredientsInRequest = fridgeService.getIngredientStringRequest()
+        service.getData(ingredients: ingredientsInRequest) { [ weak self] result in
             switch result {
             case .success(let recipesApi) :
                 self?.urlToNextPage = recipesApi.links.next.href
@@ -93,18 +88,36 @@ class SearchController: UIViewController {
                 self?.loading(load: false)
                 self?.performSegue(withIdentifier: "resultOfRecipesSearch", sender: self?.recipeList)
             case .failure(_):
-                self?.showAlert()
+                self?.showNoRecipeFoundAlert()
                 break
             }
         }
     }
     
-    @objc func closeKeyboard() {
+    @objc private func closeKeyboard() {
         view.endEditing(true)
     }
     
-    private func showAlert() {
+    private func showNoRecipeFoundAlert() {
         let alert = UIAlertController(title: "No recipe found !", message: "Please check the ingredient list.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+            self.loading(load: false)
+        }))
+
+        self.present(alert, animated: true)
+    }
+    
+    private func showEmptyInputTextAlert() {
+        let alert = UIAlertController(title: "No ingredient!", message: "Please write ingredient name.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+            self.loading(load: false)
+        }))
+
+        self.present(alert, animated: true)
+    }
+    
+    private func showDuplicateIngredientAlert() {
+        let alert = UIAlertController(title: "Is already add !", message: "This ingredient is already add.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
             self.loading(load: false)
         }))
@@ -116,17 +129,9 @@ class SearchController: UIViewController {
         ingredientsTableView.reloadData()
     }
     
-    private func updateIngredientsInRequest() {
-        var text = ""
-        for ingredient in ingredientList {
-            text = "\(text)\(ingredient),"
-        }
-        ingredientsInRequest = text
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "resultOfRecipesSearch" {
-            if let newController = segue.destination as? ResultSearchController {
+            if let newController = segue.destination as? ResultSearchViewController {
                 if let data = sender as? [Recipe] {
                     newController.data = data
                     newController.urlToNextPage = urlToNextPage
@@ -147,41 +152,40 @@ class SearchController: UIViewController {
     
     //MARK: actions
     @IBAction func addIngredient(_ sender: Any) {
-        ingredientList.append(searchText)
-        searchText = ""
         searchTextField.text = ""
-        showListIngredients()
+        fridgeService.addIngredient(ingredient: fridgeService.searchText)
+        if fridgeService.showEmptyInputTextAlert {
+            showEmptyInputTextAlert()
+            fridgeService.showEmptyInputTextAlert = false
+            
+        } else if fridgeService.showDuplicateIngredientAlert {
+            showDuplicateIngredientAlert()
+            fridgeService.showDuplicateIngredientAlert = false
+        }
+        
+        fridgeService.searchText = ""
+        ingredientsTableView.reloadData()
     }
+    
     @IBAction func updateSearch(_ sender: UITextField) {
-        let text = sender.text ?? ""
-        searchText = text
+        fridgeService.searchText = sender.text ?? ""
+       
     }
     
     @IBAction func resetList(_ sender: Any) {
-        ingredientList.removeAll()
+        fridgeService.removeAllIngredients()
         showListIngredients()
     }
     
     @IBAction func searchRecipes(_ sender: Any) {
         loading(load: true)
-        updateIngredientsInRequest()
         fetchRecipesFromEdamam()
     }
 }
 
-extension SearchController: UITableViewDelegate, UITableViewDataSource {
+extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        ingredientList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        var content = cell.defaultContentConfiguration()
-        content.text = "\(ingredientList[indexPath.row])"
-
-        cell.contentConfiguration = content
-        
-        return cell
+        fridgeService.getFridgeIngredients().count
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -194,15 +198,25 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return ingredientList.isEmpty ? 200 : 0
+        return fridgeService.getFridgeIngredients().isEmpty ? 200 : 0
+    }
+}
+
+extension SearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        var content = cell.defaultContentConfiguration()
+        content.text = "\(fridgeService.getFridgeIngredients()[indexPath.row])"
+
+        cell.contentConfiguration = content
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            ingredientList.remove(at: indexPath.row)
-            updateIngredientsInRequest()
+            fridgeService.deleteIngredientAtIndex(index: indexPath.row)
             ingredientsTableView.reloadData()
         }
     }
-    
 }

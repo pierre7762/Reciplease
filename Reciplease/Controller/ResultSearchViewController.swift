@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ResultSearchController: UITableViewController {
-    @IBOutlet var recipeTableView: UITableView!
+final class ResultSearchViewController: UITableViewController {
+    @IBOutlet private var recipeTableView: UITableView!
     
-    var data: [Recipe]!
-    var urlToNextPage: String!
+    var data: [Recipe] = []
+    var urlToNextPage: String = ""
     private let service: RequestService = RequestService()
     private var isLoading = false
     
@@ -27,9 +27,8 @@ class ResultSearchController: UITableViewController {
     //MARK: functions
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "toDetail" else { return }
-        guard let controller = segue.destination as? DetailController else { return }
+        guard let controller = segue.destination as? RecipeDetailViewController else { return }
         controller.recipeSelected = sender as? Recipe
-        controller.recipeFrom = "ResultSearchController"
     }
     
     private func fetchRecipesFromEdamam() {
