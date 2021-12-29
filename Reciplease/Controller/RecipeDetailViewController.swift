@@ -18,11 +18,12 @@ class RecipeDetailViewController: UIViewController {
     //MARK: Variable
     var recipeSelected: Recipe!
     private var coreDataManager: CoreDataManager?
+    private var recipeDetailManager = RecipeDetailManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         updateView()
-        
+
         //MARK: To fetch the scene delegate
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as? SceneDelegate else { return }
         let coreDataStack = sceneDelegate.coreDataStack
@@ -34,6 +35,9 @@ class RecipeDetailViewController: UIViewController {
         super.viewDidAppear(animated)
         guard let checkFavorite = coreDataManager?.isItFavoriteRecipe(urlRecipe: recipeSelected.urlToWebPageRecipe) else { return }
         recipeSelected.favorite = checkFavorite
+        if checkFavorite {
+            recipeDetailManager.status = .favorite
+        }
         updateFavoriteButton()
     }
     
@@ -45,15 +49,7 @@ class RecipeDetailViewController: UIViewController {
     }
     
     private func updateFavoriteButton() {
-        if recipeSelected.recipceFromFavorite {
-            favoriteBarButton.image = UIImage(named: "heartSelected.png")
-        } else {
-            if recipeSelected.favorite {
-                favoriteBarButton.image = UIImage(named: "heartSelected.png")
-            } else {
-                favoriteBarButton.image = UIImage(named: "heart.png")
-            }
-        }
+        favoriteBarButton.image = UIImage(named: recipeDetailManager.imageStatus)
     }
     
     //MARK: Action
@@ -71,15 +67,14 @@ class RecipeDetailViewController: UIViewController {
             navigationController?.popViewController(animated: true)
             
         } else {
-            if recipeSelected.favorite {
-                coreDataManager?.deleteFavoriteRecipe(urlRecipe: recipeSelected.urlToWebPageRecipe)
-                favoriteBarButton.image = UIImage(named: "heart.png")
-                recipeSelected.favorite = false
-            } else {
+            recipeDetailManager.updateStatus()
+            print(recipeDetailManager.imageStatus)
+            if recipeDetailManager.status == .favorite {
                 self.coreDataManager?.addFavoriteRecipe(recipe: recipeSelected)
-                self.favoriteBarButton.image = UIImage(named: "heartSelected.png")
-                recipeSelected.favorite = true
+            } else {
+                coreDataManager?.deleteFavoriteRecipe(urlRecipe: recipeSelected.urlToWebPageRecipe)
             }
+            updateView()
         }
     }
 }
@@ -99,3 +94,5 @@ extension RecipeDetailViewController: UITableViewDataSource {
         return cell
     }
 }
+
+

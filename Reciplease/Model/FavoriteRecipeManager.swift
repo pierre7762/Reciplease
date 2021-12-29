@@ -34,12 +34,12 @@ class FavoriteRecipeManager {
         
         
         let recipe = Recipe(
-            name: favorite.name ?? "Erreur Name",
-            image: favorite.image ?? "https://actunutrition.com/wp-content/uploads/2013/02/canstockphoto6878974.jpg",
-            ingredientsLines: favorite.ingredientsLines ?? [],
+            name: favorite.name,
+            image: favorite.image,
+            ingredientsLines: favorite.ingredientsLines,
             ingredients: recipeIngredients,
             totalTime: favorite.totalTime ,
-            urlToWebPageRecipe: favorite.urlToWebPageRecipe ?? "",
+            urlToWebPageRecipe: favorite.urlToWebPageRecipe,
             favorite: false,
             recipceFromFavorite: false,
             calories: favorite.calories

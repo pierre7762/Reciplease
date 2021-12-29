@@ -35,10 +35,13 @@
 		8FCD86F8275A1BC600BA1A88 /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */; };
 		8FDE8AA5277C770D000E46B3 /* FavoriteRecipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE8AA4277C770D000E46B3 /* FavoriteRecipeManager.swift */; };
 		8FDE8AA7277C892C000E46B3 /* FavoriteRecipeManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE8AA6277C892C000E46B3 /* FavoriteRecipeManagerTest.swift */; };
+		8FDE8AA9277CA132000E46B3 /* ListToStringTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE8AA8277CA132000E46B3 /* ListToStringTest.swift */; };
+		8FDE8AAF277CBD70000E46B3 /* RecipeDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE8AAE277CBD70000E46B3 /* RecipeDetailManager.swift */; };
+		8FDE8AB1277CC6FD000E46B3 /* RecipeDetailManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE8AB0277CC6FD000E46B3 /* RecipeDetailManagerTest.swift */; };
 		8FFCFB02277B6C9A00FA291A /* FridgeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFCFB01277B6C9A00FA291A /* FridgeService.swift */; };
 		8FFCFB04277B73FD00FA291A /* FridgeServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFCFB03277B73FD00FA291A /* FridgeServiceTest.swift */; };
 		8FFCFB06277B933900FA291A /* TimeFormatterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFCFB05277B933900FA291A /* TimeFormatterService.swift */; };
-		8FFCFB08277B9A2700FA291A /* RecipeTableViewCellServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFCFB07277B9A2700FA291A /* RecipeTableViewCellServiceTest.swift */; };
+		8FFCFB08277B9A2700FA291A /* TimeFormatterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFCFB07277B9A2700FA291A /* TimeFormatterTest.swift */; };
 		8FFCFB0B277BA15300FA291A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFCFB0A277BA15300FA291A /* Extensions.swift */; };
 		B79E6E9EB28D407F514A1453 /* Pods_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920016FD420EA75154E7F359 /* Pods_RecipleaseTests.framework */; };
 /* End PBXBuildFile section */
@@ -86,10 +89,13 @@
 		8FCD86F6275A1BC600BA1A88 /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
 		8FDE8AA4277C770D000E46B3 /* FavoriteRecipeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeManager.swift; sourceTree = "<group>"; };
 		8FDE8AA6277C892C000E46B3 /* FavoriteRecipeManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeManagerTest.swift; sourceTree = "<group>"; };
+		8FDE8AA8277CA132000E46B3 /* ListToStringTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListToStringTest.swift; sourceTree = "<group>"; };
+		8FDE8AAE277CBD70000E46B3 /* RecipeDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailManager.swift; sourceTree = "<group>"; };
+		8FDE8AB0277CC6FD000E46B3 /* RecipeDetailManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailManagerTest.swift; sourceTree = "<group>"; };
 		8FFCFB01277B6C9A00FA291A /* FridgeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeService.swift; sourceTree = "<group>"; };
 		8FFCFB03277B73FD00FA291A /* FridgeServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeServiceTest.swift; sourceTree = "<group>"; };
 		8FFCFB05277B933900FA291A /* TimeFormatterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatterService.swift; sourceTree = "<group>"; };
-		8FFCFB07277B9A2700FA291A /* RecipeTableViewCellServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCellServiceTest.swift; sourceTree = "<group>"; };
+		8FFCFB07277B9A2700FA291A /* TimeFormatterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatterTest.swift; sourceTree = "<group>"; };
 		8FFCFB0A277BA15300FA291A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		920016FD420EA75154E7F359 /* Pods_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E09F43D688A7CA458944887 /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,8 +203,10 @@
 				8FA303962768EDC000327778 /* CoreDataTest */,
 				8FA303952768EDA000327778 /* EdamamRequestTest */,
 				8FFCFB03277B73FD00FA291A /* FridgeServiceTest.swift */,
-				8FFCFB07277B9A2700FA291A /* RecipeTableViewCellServiceTest.swift */,
+				8FFCFB07277B9A2700FA291A /* TimeFormatterTest.swift */,
 				8FDE8AA6277C892C000E46B3 /* FavoriteRecipeManagerTest.swift */,
+				8FDE8AA8277CA132000E46B3 /* ListToStringTest.swift */,
+				8FDE8AB0277CC6FD000E46B3 /* RecipeDetailManagerTest.swift */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 				8FFCFB05277B933900FA291A /* TimeFormatterService.swift */,
 				8FDE8AA4277C770D000E46B3 /* FavoriteRecipeManager.swift */,
 				8FFCFB09277BA12A00FA291A /* Extensions */,
+				8FDE8AAE277CBD70000E46B3 /* RecipeDetailManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -451,6 +460,7 @@
 				8F02358F27329CA90078ED6B /* ResultSearchViewController.swift in Sources */,
 				8FB4BA85272BE67B0029E668 /* Reciplease.xcdatamodeld in Sources */,
 				8FB4BA7F272BE67B0029E668 /* SearchViewController.swift in Sources */,
+				8FDE8AAF277CBD70000E46B3 /* RecipeDetailManager.swift in Sources */,
 				8F02358D273290FA0078ED6B /* Recipe.swift in Sources */,
 				8F0E6E052750CF2400C43C84 /* RequestService.swift in Sources */,
 				8FA21157273190F000ABD3D6 /* ApiResponse.swift in Sources */,
@@ -471,13 +481,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FDE8AB1277CC6FD000E46B3 /* RecipeDetailManagerTest.swift in Sources */,
 				8FFCFB04277B73FD00FA291A /* FridgeServiceTest.swift in Sources */,
+				8FDE8AA9277CA132000E46B3 /* ListToStringTest.swift in Sources */,
 				8FA3039A2768EE6100327778 /* CoreDataManagerTest.swift in Sources */,
 				8F0E6E092751100800C43C84 /* FakeEdamamSession.swift in Sources */,
 				8F0E6E0B2751126900C43C84 /* FakeResponseData.swift in Sources */,
 				8FA303982768EDE700327778 /* FakeCoreDataStack.swift in Sources */,
 				8FDE8AA7277C892C000E46B3 /* FavoriteRecipeManagerTest.swift in Sources */,
-				8FFCFB08277B9A2700FA291A /* RecipeTableViewCellServiceTest.swift in Sources */,
+				8FFCFB08277B9A2700FA291A /* TimeFormatterTest.swift in Sources */,
 				8F0E6E0F2751130900C43C84 /* RequestServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

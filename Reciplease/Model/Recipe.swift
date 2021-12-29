@@ -11,12 +11,12 @@ struct Recipe {
     // MARK: - Internal
     
     // MARK: Properties
-    var name: String
-    var image: String
-    var ingredientsLines: [String]
+    var name: String!
+    var image: String!
+    var ingredientsLines: [String]!
     var ingredients: [Ingredient]
     var totalTime: Double
-    var urlToWebPageRecipe: String
+    var urlToWebPageRecipe: String!
     var favorite: Bool = false
     var recipceFromFavorite: Bool = false
     var calories: Double
