@@ -22,17 +22,13 @@ class SearchViewController: UIViewController {
     //MARK: variables
     private let api = ApiConstant()
     private let fridgeService = FridgeService()
-    private var searchText = ""
     private var urlToNextPage = ""
-    private var readyToShow = false
-    private let baseUrl: String = ""
     private var recipeList: [Recipe] = []
-    private var loading: Bool = false
-    
     private let service: RequestService = RequestService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fridgeService.delegate = self
         overrideUserInterfaceStyle = .light
         updateView()
         let tap = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
@@ -164,7 +160,6 @@ class SearchViewController: UIViewController {
         }
         
         fridgeService.searchText = ""
-        ingredientsTableView.reloadData()
     }
     
     @IBAction func updateSearch(_ sender: UITextField) {
@@ -216,7 +211,15 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             fridgeService.deleteIngredientAtIndex(index: indexPath.row)
-            ingredientsTableView.reloadData()
         }
     }
+}
+
+
+extension SearchViewController: FridgeServiceDelegate {
+    func didUpdateIngredientsList() {
+        showListIngredients()
+    }
+    
+    
 }

@@ -10,6 +10,7 @@ import XCTest
 
 class RequestServiceTest: XCTestCase {
 
+    // MARK: - Tests
     func testGetData_WhenCorrectDataIsPassed_ThenShouldReturnSuccededCallback() {
         let session = FakeEdamamSession(fakeResponse: FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.correctData))
         let requestService = RequestService(session: session)

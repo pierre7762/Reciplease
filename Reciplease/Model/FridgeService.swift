@@ -7,15 +7,28 @@
 
 import Foundation
 
+enum checkIngredient {
+    case ok, alreadyInTheList
+}
+
+protocol FridgeServiceDelegate: AnyObject {
+    func didUpdateIngredientsList()
+}
+
 class FridgeService {
     
+    weak var delegate: FridgeServiceDelegate?
+    
+    // MARK: - Internal
+    
+    // MARK: Properties
     var showDuplicateIngredientAlert = false
     var showEmptyInputTextAlert = false
     var searchText: String = ""
-    private var fridgeIntegrients: [String] = []
     
+    // MARK: Functions
     func getFridgeIngredients() -> [String] {
-        fridgeIntegrients
+        fridgeIngredients
     }
     
     func addIngredient(ingredient: String) {
@@ -24,7 +37,7 @@ class FridgeService {
             
             switch ingredientIsAlreadyInTheList {
                 case .ok:
-                    fridgeIntegrients.append(ingredient)
+                    fridgeIngredients.append(ingredient)
                 case .alreadyInTheList:
                     showDuplicateIngredientAlert = true
             }
@@ -34,23 +47,33 @@ class FridgeService {
     }
     
     func deleteIngredientAtIndex(index: Int) {
-        fridgeIntegrients.remove(at: index)
+        fridgeIngredients.remove(at: index)
     }
     
     func removeAllIngredients() {
-        fridgeIntegrients = []
+        fridgeIngredients = []
     }
     
     func getIngredientStringRequest() -> String {
         var text = ""
-        for ingredient in fridgeIntegrients {
+        for ingredient in fridgeIngredients {
             text = "\(text)\(ingredient),"
         }
         return text
     }
     
+    // MARK: - Private
+    
+    // MARK: Properties
+    private var fridgeIngredients: [String] = [] {
+        didSet {
+            delegate?.didUpdateIngredientsList()
+        }
+    }
+    
+    // MARK: Functions
     private func isItAlreadyInTheList (ingredient: String) -> checkIngredient {
-        for ingredientInList in fridgeIntegrients {
+        for ingredientInList in fridgeIngredients {
             if ingredient == ingredientInList { return .alreadyInTheList }
         }
         return .ok
@@ -59,6 +82,4 @@ class FridgeService {
    
 }
 
-enum checkIngredient {
-    case ok, alreadyInTheList
-}
+

@@ -20,17 +20,19 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak private var delayLabel: UILabel!
     @IBOutlet weak private var caloriesLabel: UILabel!
     
+    //MARK: - Public
     //MARK: Variables
     var recipe: Recipe! {
         didSet {
             backgroundImageView.load(urlString: recipe.image)
             recipeNameLabel.text = recipe.name
-            ingredientsLabel.text = service.renderIngredientsListInOneString(recipe: recipe)
-            delayLabel.text = service.returnTime(minutes: Int(recipe.totalTime))
+            ingredientsLabel.text = ingredientListFormatterService.renderIngredientsListInOneString(recipe: recipe)
+            delayLabel.text = timeFormatterService.returnTime(minutes: Int(recipe.totalTime))
             caloriesLabel.text = "\(Int(recipe.calories)) calories"
         }
     }
-    private let service = RecipeTableViewCellService()
+    private let timeFormatterService = TimeFormatterService()
+    private let ingredientListFormatterService = IngredientListFormatterService()
     
     //MARK: Functions
     func setupCell() {
@@ -40,6 +42,8 @@ class RecipeTableViewCell: UITableViewCell {
         topRightView.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
     }
     
+    //MARK: - Private
+    //MARK: Functions
     private func commonInit(imageName: String, name: String, ingredients: String, delay: String) {
         backgroundImageView.image = UIImage(named: imageName)
         recipeNameLabel.text = name

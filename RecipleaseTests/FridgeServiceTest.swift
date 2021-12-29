@@ -9,6 +9,8 @@ import XCTest
 @testable import Reciplease
 
 class FridgeServiceTest: XCTestCase {
+    
+    // MARK: - Properties
     var fridge: FridgeService!
     
     //MARK: - Tests Life Cycle
@@ -22,6 +24,7 @@ class FridgeServiceTest: XCTestCase {
         fridge = nil
     }
 
+    // MARK: - Tests
     func testAddIngredient_WhenIngredientIsntInList_ThenNewIngredientAdded() throws {
         fridge.addIngredient(ingredient: "banana")
         

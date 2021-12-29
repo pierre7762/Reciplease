@@ -10,11 +10,9 @@ import CoreData
 
 final class CoreDataManager {
 
-    // MARK: - Properties
+    // MARK: - Internal
     
-    private let coreDataStack: CoreDataStack
-    private let managedObjectContext: NSManagedObjectContext
-
+    // MARK: Properties
     var favoriteRecipesList: [FavoriteRecipe] {
         let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
@@ -22,14 +20,14 @@ final class CoreDataManager {
         return favoritesrecipe
     }
 
-    // MARK: - Initializer
+    // MARK: Initializer
 
     init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
         self.managedObjectContext = coreDataStack.mainContext
     }
 
-    // MARK: - Manage Task Entity
+    // MARK: Functions
 
     func addFavoriteRecipe(recipe: Recipe) {
         let isntAlreadySaved = isItFavoriteRecipe(urlRecipe: recipe.urlToWebPageRecipe)
@@ -83,4 +81,10 @@ final class CoreDataManager {
         
         return response
     }
+    
+    // MARK: - Private
+    
+    // MARK: Properties
+    private let coreDataStack: CoreDataStack
+    private let managedObjectContext: NSManagedObjectContext
 }

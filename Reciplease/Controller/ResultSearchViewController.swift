@@ -13,7 +13,6 @@ final class ResultSearchViewController: UITableViewController {
     var data: [Recipe] = []
     var urlToNextPage: String = ""
     private let service: RequestService = RequestService()
-    private var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

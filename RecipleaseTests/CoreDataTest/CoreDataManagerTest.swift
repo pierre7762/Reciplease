@@ -13,7 +13,7 @@ class CoreDataManagerTest: XCTestCase {
     var coreDataStack: FakeCoreDataStack!
     var coreDataManager: CoreDataManager!
 
-    //MARK: - Tests Life Cycle
+    // MARK: - Tests Life Cycle
     override func setUp() {
         super.setUp()
         coreDataStack = FakeCoreDataStack()

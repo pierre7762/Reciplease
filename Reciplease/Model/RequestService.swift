@@ -13,9 +13,10 @@ enum EdamamError: Error {
 }
 
 final class RequestService {
-    private let session: AlamoFireSession
-    private let api = ApiConstant()
     
+    // MARK: - Internal
+    
+    // MARK: Functions
     init(session: AlamoFireSession = EdamamSession()) {
         self.session = session
     }
@@ -57,4 +58,10 @@ final class RequestService {
             callback(.success(dataDecoded))
         }
     }
+    
+    // MARK: - Private
+    
+    // MARK: Properties
+    private let session: AlamoFireSession
+    private let api = ApiConstant()
 }

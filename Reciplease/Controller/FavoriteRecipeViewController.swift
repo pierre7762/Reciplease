@@ -7,13 +7,23 @@
 
 import UIKit
 
+
+
+
 class FavoriteRecipeViewController: UITableViewController {
     //MARK: Outlet
     @IBOutlet private var favoriteRecipeTableView: UITableView!
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fetchDataFromCoreData()
+    }
+    
     //MARK: Variable
     private var coreDataManager: CoreDataManager?
-    private var favoritList: [FavoriteRecipe] = []
+    private var favoriteRecipeManager = FavoriteRecipeManager()
+    private var recipeList: [Recipe] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,17 +34,12 @@ class FavoriteRecipeViewController: UITableViewController {
         favoriteRecipeTableView.register(nibName, forCellReuseIdentifier: "recipeCell")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard let list = coreDataManager?.favoriteRecipesList else { return }
-        favoritList = list
-        favoriteRecipeTableView.reloadData()
-    }
+   
     
     //MARK: Function
-    private func fetchDataFromCorData() {
+    private func fetchDataFromCoreData() {
         guard let list = coreDataManager?.favoriteRecipesList else { return }
-        favoritList = list
+        recipeList = favoriteRecipeManager.convertFavoriteListToRecipeList(favoriteList: list)
         favoriteRecipeTableView.reloadData()
     }
     
@@ -52,23 +57,12 @@ class FavoriteRecipeViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favoritList.count
+        recipeList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favoriteRecipeTableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! RecipeTableViewCell
-        let favoriteToShow = favoritList[indexPath.row]
-        let ingredients = favoriteToShow.ingredientsList?.allObjects as! [FavoriteIngredient]
-        let favoriteToRecipeType = Recipe(
-            name: favoriteToShow.name! as String,
-            image: favoriteToShow.image! as String,
-            ingredientsLines: favoriteToShow.ingredientsLines!,
-            ingredients: ingredients.map {  Ingredient(text: $0.text!, quantity: $0.quantity, measure: $0.measure, food: $0.food!, weight: $0.weight, image: $0.image!)},
-            totalTime: favoriteToShow.totalTime,
-            urlToWebPageRecipe: favoriteToShow.urlToWebPageRecipe! as String,
-            calories: favoriteToShow.calories
-        )
-        cell.recipe = favoriteToRecipeType
+        cell.recipe = recipeList[indexPath.row]
         cell.setupCell()
         
         return cell
@@ -76,8 +70,12 @@ class FavoriteRecipeViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            coreDataManager!.deleteFavoriteRecipe(urlRecipe: favoritList[indexPath.row].urlToWebPageRecipe!)
-            fetchDataFromCorData()
+            guard let coreDataManager = coreDataManager else {
+                return
+            }
+
+            coreDataManager.deleteFavoriteRecipe(urlRecipe: recipeList[indexPath.row].urlToWebPageRecipe)
+            fetchDataFromCoreData()
             favoriteRecipeTableView.reloadData()
         }
     }
@@ -87,18 +85,7 @@ class FavoriteRecipeViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favoriteToShow = favoritList[indexPath.row]
-        let ingredients = favoriteToShow.ingredientsList?.allObjects as! [FavoriteIngredient]
-        let favoriteToRecipeType = Recipe(
-            name: favoriteToShow.name! as String,
-            image: favoriteToShow.image! as String,
-            ingredientsLines: favoriteToShow.ingredientsLines!,
-            ingredients: ingredients.map {  Ingredient(text: $0.text!, quantity: $0.quantity, measure: $0.measure, food: $0.food!, weight: $0.weight, image: $0.image!)},
-            totalTime: favoriteToShow.totalTime,
-            urlToWebPageRecipe: favoriteToShow.urlToWebPageRecipe! as String,
-            calories: favoriteToShow.calories
-        )
-        performSegue(withIdentifier: "toDetailFromFavorite", sender: favoriteToRecipeType)
+        performSegue(withIdentifier: "toDetailFromFavorite", sender: recipeList[indexPath.row])
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -111,6 +98,6 @@ class FavoriteRecipeViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return favoritList.isEmpty ? 500 : 0
+        return recipeList.isEmpty ? 500 : 0
     }
 }

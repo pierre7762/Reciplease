@@ -8,6 +8,9 @@
 import Foundation
 
 struct Recipe {
+    // MARK: - Internal
+    
+    // MARK: Properties
     var name: String
     var image: String
     var ingredientsLines: [String]

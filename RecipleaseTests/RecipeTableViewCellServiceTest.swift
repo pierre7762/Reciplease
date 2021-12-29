@@ -9,16 +9,20 @@ import XCTest
 @testable import Reciplease
 
 class RecipeTableViewCellServiceTest: XCTestCase {
-    let service = RecipeTableViewCellService()
+    
+    // MARK: - Properties
+    let serviceTime = TimeFormatterService()
+    let serviceString = IngredientListFormatterService()
 
+    // MARK: - Tests
     func testReturnTime_WhenGiveTimeInSecond_ThenReturnCorrectString() throws {
-        let test1 = service.returnTime(minutes: 50)
+        let test1 = serviceTime.returnTime(minutes: 50)
         XCTAssertEqual(test1, "⏱ 50min")
-        let test2 = service.returnTime(minutes: 76)
+        let test2 = serviceTime.returnTime(minutes: 76)
         XCTAssertEqual(test2, "⏱ 1h16")
-        let test3 = service.returnTime(minutes: 120)
+        let test3 = serviceTime.returnTime(minutes: 120)
         XCTAssertEqual(test3, "⏱ 2h")
-        let test4 = service.returnTime(minutes: 0)
+        let test4 = serviceTime.returnTime(minutes: 0)
         XCTAssertEqual(test4, "⏱ unknown")
     }
     
@@ -37,7 +41,7 @@ class RecipeTableViewCellServiceTest: XCTestCase {
             recipceFromFavorite: false,
             calories: 3000.0
         )
-        let result = service.renderIngredientsListInOneString(recipe: recipe)
+        let result = serviceString.renderIngredientsListInOneString(recipe: recipe)
         
         XCTAssertEqual(result, "ingredient1 ingredient2 ")
     }

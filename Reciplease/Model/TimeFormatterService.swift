@@ -1,5 +1,5 @@
 //
-//  RecipeTableViewCellService.swift
+//  TimeFormatterService.swift
 //  Reciplease
 //
 //  Created by Pierre on 28/12/2021.
@@ -7,7 +7,12 @@
 
 import Foundation
 
-class RecipeTableViewCellService {
+class TimeFormatterService {
+    
+    // MARK: - Internal
+    
+    // MARK: Internal - Methods
+    
     func returnTime(minutes: Int) -> String {
         let (h, m) = minutesToHoursMinutes(seconds: minutes)
 
@@ -22,6 +27,18 @@ class RecipeTableViewCellService {
         return "⏱ \(h)h\(m)"
     }
     
+    // MARK: - Private
+    
+    // MARK: Private - Methods
+    private func minutesToHoursMinutes (seconds : Int) -> (Int, Int) {
+       (seconds / 60, (seconds % 60))
+    }
+
+}
+
+
+class IngredientListFormatterService {
+    
     func renderIngredientsListInOneString(recipe: Recipe) -> String{
         var theString = ""
         
@@ -31,9 +48,4 @@ class RecipeTableViewCellService {
         
         return theString
     }
-    
-    private func minutesToHoursMinutes (seconds : Int) -> (Int, Int) {
-       (seconds / 60, (seconds % 60))
-    }
-
 }
