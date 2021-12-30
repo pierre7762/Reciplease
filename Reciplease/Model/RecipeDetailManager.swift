@@ -17,18 +17,11 @@ class RecipeDetailManager {
     // MARK: Internal properties
     var status: FavoriteStatus = .notFavorite
     var imageStatus: String {
-        if status == .favorite {
-            return "heartSelected.png"
-        }
-        return "heart.png"
+        status == .favorite ? "heartSelected.png" : "heart.png"
     }
     
     // MARK: Internal methode
     func updateStatus() {
-        if status == .favorite {
-            status = .notFavorite
-        } else {
-            status = .favorite
-        }
+        status = status == .favorite ? .notFavorite : .favorite
     }
 }
